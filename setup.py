@@ -11,6 +11,19 @@ from setuptools import setup
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
+CLASSIFIERS = [
+    'Development Status :: 3 - Alpha',
+    'Environment :: Web Environment',
+    'Framework :: Django',
+    'Intended Audience :: Developers',
+    'License :: OSI Approved :: BSD License',
+    'Operating System :: OS Independent',
+    'Programming Language :: Python',
+    'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
+    'Topic :: Software Development',
+    'Topic :: Software Development :: Libraries :: Application Frameworks',
+]
+
 setup(
     name = "cemese",
     version = "0.0.1",
@@ -20,12 +33,16 @@ setup(
                    "(without i18n)."),
     license = "BSD",
     keywords = "cms content",
-    url = "hhttps://github.com/mauler/django-cemese",
+    url = "https://github.com/mauler/django-cemese",
     packages=['cemese', 'tests'],
     long_description=read('README'),
-    classifiers=[
-        "Development Status :: 3 - Alpha",
-        "Framework :: Django",
+    classifiers=CLASSIFIERS,
+    install_requires=[
+        'Django',
+        'FeinCMS',
+        'django-mptt',
+        'django-taggit',
+        'django-extensions'
     ],
 )
 
