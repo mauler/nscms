@@ -1,0 +1,51 @@
+<script type="text/javascript" src="{{ CKEDITOR_JS_URL }}"></script>
+
+<style type="text/css">
+    span.cke_skin_kama { border: none !important; }
+    span.cke_wrapper { margin-left: 107px; }
+</style>
+
+<script type="text/javascript">
+		{% block config %}
+
+    CKEDITOR.config.filebrowserUploadUrl = "{% url ckeditor_upload %}";
+    CKEDITOR.config.filebrowserBrowseUrl = "{% url ckeditor_browse %}";
+
+    CKEDITOR.config.width = '787';
+    CKEDITOR.config.height= '300';
+    CKEDITOR.config.toolbar= 'Full';
+    //CKEDITOR.config.toolbar_Full = [
+	//		{% block toolbar %}['Maximize','-','Format','-','Bold','Italic','Underline','Strike','-','Subscript','Superscript','-','NumberedList','BulletedList','-','Anchor', 'Link','Unlink','-','Source',],{% endblock %}
+    //];
+		{% endblock %}
+
+    (function($){
+        contentblock_init_handlers.push(function(){
+            $('.order-machine textarea[class=item-richtext], #frontend_editor textarea[class=item-richtext]').each(function(){
+                feincms_richtext_add_ckeditor(this);
+            });
+
+            contentblock_move_handlers.poorify.push(function(item) {
+                item.find('textarea[class=item-richtext]').each(feincms_richtext_remove_ckeditor);
+            });
+            contentblock_move_handlers.richify.push(function(item) {
+                item.find('textarea[class=item-richtext]').each(feincms_richtext_add_ckeditor);
+            });
+        });
+    })(feincms.jQuery);
+
+    function feincms_richtext_remove_ckeditor(field) {
+        var id = field ? field.id : this.id;
+        if (id in CKEDITOR.instances) {
+            CKEDITOR.instances[id].destroy();
+        }
+    }
+
+    function feincms_richtext_add_ckeditor(field) {
+        var id = field ? field.id : this.id;
+        if (!(id in CKEDITOR.instances)) {
+            CKEDITOR.replace(id);
+        }
+    }
+</script>
+

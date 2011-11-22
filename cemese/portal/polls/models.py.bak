@@ -1,0 +1,29 @@
+#!/usr/bin/env python
+#-*- coding:utf-8 -*-
+
+from django.db import models
+from django.utils.translation import ugettext_lazy as _
+
+from photologue.models import ImageModel
+from taggit.managers import TaggableManager
+
+from cemese.db.models import ContentModel, SimpleContentModel
+
+
+class Question(ContentModel):
+
+    class Meta:
+        verbose_name = _(u"Pergunta")
+        verbose_name_plural = _(u"Perguntas")
+
+class Choice(SimpleContentModel):
+    question = models.ForeignKey(Question)
+    votes = models.IntegerField(default=0)
+
+    class Meta:
+        verbose_name = _(u"Resposta")
+        verbose_name_plural = _(u"Respostas")
+
+    def __str__(self):
+        return '%s - %s' % (self.question.title, self.text)
+
