@@ -12,6 +12,6 @@ django-ckeditor improvements
 
 There are two improvements available on the app "cemese.ckeditor"
 
-    + Better file upload (slugify filename and no error if upload is not a image when trying to generate thumb)
-    + static files when using "collectstatic" not available on "django-ckeditor"
+ * Better file upload (slugify filename and no error if upload is not a image when trying to generate thumb)
+ * static files when using "collectstatic" not available on "django-ckeditor"
 
