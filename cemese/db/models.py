@@ -43,10 +43,11 @@ class PublisherModelManager(models.Manager):
             expire_date__lt=now
         ).order_by("publish_date")
 
+
 class _ContentModel(models.Model):
 
     title = models.CharField(_('title'), max_length=255)
-    slug = AutoSlugField(_('slug'), populate_from='title', overwrite=True)
+    slug = AutoSlugField(_('slug'), populate_from='title', overwrite=True, max_length=255, editable=False)
     description = models.TextField(_('description'), blank=True, null=True)
 
     created = CreationDateTimeField(_('created'))
@@ -61,7 +62,7 @@ class _ContentModel(models.Model):
 class SimpleContentModel(models.Model):
 
     title = models.CharField(_('title'), max_length=255)
-    slug = AutoSlugField(_('slug'), populate_from='title', overwrite=True)
+    slug = AutoSlugField(_('slug'), populate_from='title', overwrite=True, max_length=255, editable=False)
 
     created = CreationDateTimeField(_('created'))
     modified = ModificationDateTimeField(_('modified'))
@@ -77,13 +78,36 @@ class SimpleContentModel(models.Model):
         ordering = ("title", )
 
 
-class DateContentModel(models.Model):
+class PersonModel(models.Model):
+
+    name = models.CharField(_('name'), max_length=255)
+    slug = AutoSlugField(_('slug'), populate_from='name', overwrite=True, max_length=255, editable=False)
+
+    created = CreationDateTimeField(_('created'))
+    modified = ModificationDateTimeField(_('modified'))
+
+    def __unicode__(self):
+        return self.name
+
+    class Admin(admin.ModelAdmin):
+        pass
+
+    class Meta:
+        abstract = True
+        ordering = ("name", )
+
+
+class CreationModificationModel(models.Model):
+
     created = CreationDateTimeField(_('created'))
     modified = ModificationDateTimeField(_('modified'))
 
     class Meta:
         abstract = True
         ordering = ("-created", "-modified", )
+
+
+DateContentModel = CreationModificationModel
 
 
 class PublisherModel(models.Model):
@@ -103,7 +127,7 @@ class PublisherModel(models.Model):
 
     class Meta:
         abstract = True
-        ordering = ("-published", )
+        ordering = ("-publish_date", "-published", )
 
     def is_published(self):
         now = datetime.datetime.now()
@@ -116,10 +140,15 @@ class PublisherModel(models.Model):
             self.publish_date = datetime.datetime.now()
         super(PublisherModel, self).save(*args, **kwargs)
 
+
 ADMIN_FIELDSET_TITLE = (None, {"fields": ("title", "description", )})
+
+
 ADMIN_FIELDSET_PUBLISHING = (_(u"Publicação"), {"fields": ("published", "publish_date", "expire_date", )})
 
+
 class ContentModel(_ContentModel, PublisherModel):
+
     ADMIN_FIELDSET_TITLE = ADMIN_FIELDSET_TITLE
     ADMIN_FIELDSET_PUBLISHING = ADMIN_FIELDSET_PUBLISHING
 
@@ -133,10 +162,12 @@ class ContentModel(_ContentModel, PublisherModel):
         list_filter = ("published", )
         search_fields = ("title", "description", )
 
-    class Meta:
+    class Meta(PublisherModel.Meta):
         abstract = True
 
+
 class TextContentModel(ContentModel):
+
     body = RichTextField()
 
     class Admin(ContentModel.Admin):
@@ -145,7 +176,34 @@ class TextContentModel(ContentModel):
             ADMIN_FIELDSET_PUBLISHING,
         )
 
+    class Meta(ContentModel.Meta):
+        abstract = True
+
+
+class PTBRSimpleContentModel(models.Model):
+
+    titulo = models.CharField(_(u'Título'), max_length=255)
+    slug = AutoSlugField(_('slug'), populate_from='titulo', overwrite=True, max_length=255, editable=False)
+
+    criado_em = CreationDateTimeField(_(u'Criado em'))
+    modificado_em = ModificationDateTimeField(_(u'Modificado em'))
+
+    def __unicode__(self):
+        return self.title
+
+    class Admin(admin.ModelAdmin):
+        pass
 
     class Meta:
         abstract = True
+        ordering = ("titulo", )
+
+
+try:
+    import south
+except ImportError:
+    pass
+else:
+    from south.modelsinspector import add_introspection_rules
+    add_introspection_rules([], ["^ckeditor\.fields\.RichTextField"])
 
