@@ -1,10 +1,17 @@
+#!/usr/bin/env python
+#-*- coding:utf-8 -*-
+
 import os
 from datetime import datetime
 
 from django.conf import settings
+from django.core.files.storage import default_storage
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+
+from cemese.utils import slugify_filename
+
 
 try:
     from PIL import Image, ImageOps
@@ -33,14 +40,26 @@ def upload(request):
     upload = request.FILES['upload']
     upload_ext = os.path.splitext(upload.name)[1]
 
-    # Open output file in which to store upload.
-    upload_filename = get_upload_filename(upload.name, request.user)
-    out = open(upload_filename, 'wb+')
 
-    # Iterate through chunks and write to destination.
-    for chunk in upload.chunks():
-        out.write(chunk)
-    out.close()
+
+    if getattr(settings, 'CKEDITOR_RESTRICT_BY_USER', False):
+        user_path = user.username
+    else:
+        user_path = ''
+    date_path = datetime.now().strftime('%Y/%m/%d')
+    upload_path = os.path.join(settings.CKEDITOR_UPLOAD_PATH, user_path, date_path)
+    path = os.path.join(upload_path, slugify_filename(upload.name))
+    default_storage.save(path, upload)
+    upload_filename = path
+
+#    # Open output file in which to store upload.
+#    upload_filename = get_upload_filename(upload.name, request.user)
+#    out = open(upload_filename, 'wb+')
+
+#    # Iterate through chunks and write to destination.
+#    for chunk in upload.chunks():
+#        out.write(chunk)
+#    out.close()
 
     try:
         create_thumbnail(upload_filename)
