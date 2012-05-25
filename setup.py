@@ -35,7 +35,7 @@ setup(
     keywords = "cms content",
     url = "https://github.com/mauler/django-cemese",
     packages=['cemese', 'tests'],
-    long_description=read('README'),
+    long_description=read('README.md'),
     classifiers=CLASSIFIERS,
     install_requires=[
         'Django',
