@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
+from urllib import urlencode
+
 from django.template import Library, Node, TemplateSyntaxError
+
+
 
 register = Library()
 
@@ -139,6 +143,11 @@ def str_in(target, part):
     return target.find(part) >= 0
 
 @register.filter
+def str_replace(target, parts):
+    part1, part2 = parts.split("|")
+    return target.replace(part1, part2)
+
+@register.filter
 def str_split(target, separator=None):
     return target.split(separator)
 
@@ -147,4 +156,8 @@ def dict_lookup(dict, index):
     if index in dict:
         return dict[index]
     return ''
+
+@register.filter
+def urllib_urlencode(target):
+    return urlencode(target)
 
