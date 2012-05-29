@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
+from django.conf import settings
 from django.contrib import admin
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -10,6 +11,11 @@ from ckeditor.fields import RichTextField
 from django_extensions.db.fields import *
 
 import datetime
+
+
+CEMESE_CONTENT_TITLE_LENGTH = getattr(settings,
+                                      "CEMESE_CONTENT_TITLE_LENGTH",
+                                      255)
 
 
 class PublisherModelManager(models.Manager):
@@ -46,8 +52,8 @@ class PublisherModelManager(models.Manager):
 
 class _ContentModel(models.Model):
 
-    title = models.CharField(_('title'), max_length=255)
-    slug = AutoSlugField(_('slug'), populate_from='title', overwrite=True, max_length=255, editable=False)
+    title = models.CharField(_('title'), max_length=CEMESE_CONTENT_TITLE_LENGTH)
+    slug = AutoSlugField(_('slug'), populate_from='title', overwrite=True, max_length=CEMESE_CONTENT_TITLE_LENGTH, editable=False)
     description = models.TextField(_('description'), blank=True, null=True)
 
     created = CreationDateTimeField(_('created'))
@@ -61,8 +67,8 @@ class _ContentModel(models.Model):
 
 class SimpleContentModel(models.Model):
 
-    title = models.CharField(_('title'), max_length=255)
-    slug = AutoSlugField(_('slug'), populate_from='title', overwrite=True, max_length=255, editable=False)
+    title = models.CharField(_('title'), max_length=CEMESE_CONTENT_TITLE_LENGTH)
+    slug = AutoSlugField(_('slug'), populate_from='title', overwrite=True, max_length=CEMESE_CONTENT_TITLE_LENGTH, editable=False)
 
     created = CreationDateTimeField(_('created'))
     modified = ModificationDateTimeField(_('modified'))
