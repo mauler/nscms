@@ -174,7 +174,7 @@ class ContentModel(_ContentModel, PublisherModel):
 
 class TextContentModel(ContentModel):
 
-    body = RichTextField()
+    body = RichTextField(verbose_name=_(u"Corpo"))
 
     class Admin(ContentModel.Admin):
         fieldsets = (
