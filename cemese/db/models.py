@@ -2,9 +2,9 @@
 #-*- coding:utf-8 -*-
 
 from django.contrib import admin
+from django.db.models import Q
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.db.models import Q
 
 from ckeditor.fields import RichTextField
 from django_extensions.db.fields import *

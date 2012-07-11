@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
-import os
 from setuptools import setup
+import os
 
 # Utility function to read the README file.
 # Used for the long_description.  It's nice, because now 1) we have a top level
@@ -25,23 +25,24 @@ CLASSIFIERS = [
 ]
 
 setup(
-    name = "cemese",
-    version = "0.0.1",
-    author = "Paulo Roberto Macedo",
-    author_email = "proberto.macedo@gmail.com",
-    description = ("A package of tools to create a lazy cms on pt_BR language "
-                   "(without i18n)."),
-    license = "BSD",
-    keywords = "cms content",
-    url = "https://github.com/mauler/django-cemese",
-    packages=['cemese', 'tests'],
+    name="django-cemese",
+    version="0.0.1",
+    author="Paulo Roberto Macedo Chaves",
+    author_email="proberto.macedo@gmail.com",
+    description="A package with a lot of tools to that helps my self to " \
+                "create cms projects using Django.",
+    license="BSD",
+    keywords="cms content blog",
+    url="http://github.com/mauler/django-cemese",
+    packages=["cemese"],
     long_description=read('README.md'),
     classifiers=CLASSIFIERS,
     install_requires=[
         'Django',
-        'FeinCMS',
-        'django-mptt',
-        'django-taggit',
+        'django-ckeditor',
+#        'FeinCMS',
+#        'django-mptt',
+#        'django-taggit',
         'django-extensions'
     ],
 )
