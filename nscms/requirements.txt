@@ -6,4 +6,3 @@ django-extensions
 django-ckeditor
 South
 django-mptt
-

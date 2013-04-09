@@ -1,19 +1,18 @@
-#!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
 from django.http import HttpResponse
 from django.shortcuts import redirect
 
-from models import Inscricao
+from models import Subscription
 
 
-def inscrever(request):
+def register(request):
     if 'email' in request.GET:
-        Inscricao.objects.get_or_create(email=request.GET['email'])
+        Subscription.objects.get_or_create(email=request.GET['email'])
         return HttpResponse(mimetype="text/json")
 
 
-def remover(request):
-    Inscricao.objects.get(pk=request.GET['pk'], email=request.GET['email']).delete()
+def remove(request):
+    Subscription.objects.get(
+        pk=request.GET['pk'], email=request.GET['email']).delete()
     return redirect(request.GET['redirect_to'])
-

@@ -1,9 +1,8 @@
-#!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
 from django.conf import settings
 from django.contrib.auth.backends import ModelBackend
-from django.contrib.auth.models import User, check_password
+from django.contrib.auth.models import User
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import get_model
 
@@ -26,7 +25,8 @@ class CustomUserModelBackend(ModelBackend):
     @property
     def user_class(self):
         if not hasattr(self, '_user_class'):
-            self._user_class = get_model(*settings.CUSTOM_USER_MODEL.split('.', 2))
+            self._user_class = get_model(
+                *settings.CUSTOM_USER_MODEL.split('.', 2))
             if not self._user_class:
                 raise ImproperlyConfigured('Could not get custom user model')
         return self._user_class
@@ -55,4 +55,3 @@ class EmailAuthBackend(object):
             return User.objects.get(pk=user_id)
         except User.DoesNotExist:
             return None
-

@@ -1,7 +1,4 @@
-#!/usr/bin/env python
 #-*- coding:utf-8 -*-
-
-from simplejson import loads
 
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
@@ -20,17 +17,25 @@ class JSONField2(JSONField):
     def get_db_prep_save(self, value, connection):
         """Convert our JSON object to a string before we save"""
         if not isinstance(value, (list, dict)):
-            return super(JSONField, self).get_db_prep_save("", connection=connection)
+            return super(JSONField, self).get_db_prep_save(
+                "", connection=connection)
         else:
-            return super(JSONField, self).get_db_prep_save(dumps(value),
-                                                           connection=connection)
+            return super(JSONField, self).get_db_prep_save(
+                dumps(value), connection=connection)
+
 
 class MailModel(models.Model):
-    template_name = getattr(settings, "CEMESE_MAILING_TEMPLATE_NAME", "cemese/mail_template.txt")
-    mail_subject = getattr(settings, "CEMESE_MAILING_MAIL_SUBJECT", "Cemese mail")
-    from_mail = getattr(settings, "CEMESE_MAILING_FROM_MAIL", "contato@construtoracarrara.com.br")
-    to_mail = getattr(settings, "CEMESE_MAILING_TO_MAIL", ["proberto.macedo@gmail.com"])
-    fail_silently = getattr(settings, "CEMESE_MAILING_FAIL_SILENTLY", True)
+    template_name = getattr(
+        settings, "CEMESE_MAILING_TEMPLATE_NAME", "cemese/mail_template.txt")
+    mail_subject = getattr(
+        settings, "CEMESE_MAILING_MAIL_SUBJECT", "Cemese mail")
+    from_mail = getattr(
+        settings, "CEMESE_MAILING_FROM_MAIL",
+        "contato@construtoracarrara.com.br")
+    to_mail = getattr(
+        settings, "CEMESE_MAILING_TO_MAIL", ["proberto.macedo@gmail.com"])
+    fail_silently = getattr(
+        settings, "CEMESE_MAILING_FAIL_SILENTLY", True)
 
     mail_sent = models.BooleanField(verbose_name=u"Email enviado",
                                     default=False,
@@ -46,7 +51,8 @@ class MailModel(models.Model):
         if not self.mail_sent:
             if hasattr(self, "mailing"):
                 for subject, template_name, getto in self.mailing:
-                    html_content = render_to_string(template_name, {'instance': self})
+                    html_content = render_to_string(
+                        template_name, {'instance': self})
 
                     if callable(subject):
                         subject = subject(self)
@@ -56,12 +62,14 @@ class MailModel(models.Model):
                     else:
                         to = self.to_mail
 
-                    msg = EmailMessage(subject, html_content, self.from_mail, to)
+                    msg = EmailMessage(
+                        subject, html_content, self.from_mail, to)
                     if template_name.endswith(".html"):
                         msg.content_subtype = "html"
                     msg.send()
             else:
-                message = render_to_string(self.template_name, {'instance': self})
+                message = render_to_string(
+                    self.template_name, {'instance': self})
                 send_mail(self.mail_subject,
                           message,
                           self.from_mail,
@@ -78,21 +86,33 @@ class MailModel(models.Model):
         if created:
             instance.send_email()
 
+
 class MailmeModel(object):
     mailme = True
+
 
 class Mailme(models.Model):
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
-    template_name = models.CharField(max_length=255, default=getattr(settings, "CEMESE_MAILING_TEMPLATE_NAME", "cemese/mail_template.txt"))
+    template_name = models.CharField(
+        max_length=255, default=getattr(
+            settings, "CEMESE_MAILING_TEMPLATE_NAME",
+            "cemese/mail_template.txt"))
     mail_content = models.TextField(blank=True)
-    mail_subject = models.CharField(max_length=255, default=getattr(settings, "CEMESE_MAILING_MAIL_SUBJECT", "[CEMESE] mailing.Mailme"))
-    from_mail = models.CharField(max_length=255, default=getattr(settings, "CEMESE_MAILING_FROM_MAIL", "proberto.macedo@gmail.com"))
-    to_mail = JSONField2(default=getattr(settings, "CEMESE_MAILING_TO_MAIL", ["proberto.macedo@gmail.com"]))
-    fail_silently = models.CharField(max_length=255, default=getattr(settings, "CEMESE_MAILING_FAIL_SILENTLY", True))
-    sent = models.BooleanField(verbose_name=u"Email enviado", default=False)#, null=True)#, editable=True, null=True)
+    mail_subject = models.CharField(
+        max_length=255, default=getattr(
+            settings, "CEMESE_MAILING_MAIL_SUBJECT", "[CEMESE] mailing.Mailme"))
+    from_mail = models.CharField(
+        max_length=255, default=getattr(
+            settings, "CEMESE_MAILING_FROM_MAIL", "proberto.macedo@gmail.com"))
+    to_mail = JSONField2(default=getattr(
+        settings, "CEMESE_MAILING_TO_MAIL", ["proberto.macedo@gmail.com"]))
+    fail_silently = models.CharField(
+        max_length=255, default=getattr(
+            settings, "CEMESE_MAILING_FAIL_SILENTLY", True))
+    sent = models.BooleanField(verbose_name=u"Email enviado", default=False)
 
     class Admin(admin.ModelAdmin):
         readonly_fields = ("sent", "fail_silently", )
@@ -135,4 +155,3 @@ class Mailme(models.Model):
 signals.post_save.connect(Mailme.post_save, sender=Mailme)
 
 signals.post_save.connect(Mailme.plugged_model_post_save)
-
