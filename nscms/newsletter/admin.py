@@ -7,4 +7,3 @@ from models import Inscricao
 
 
 site.register(Inscricao, Inscricao.Admin)
-

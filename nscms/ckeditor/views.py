@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
 import os
@@ -28,6 +27,7 @@ except ImportError:
 
 from ckeditor.views import *
 
+
 @csrf_exempt
 def upload(request):
     """
@@ -40,14 +40,13 @@ def upload(request):
     upload = request.FILES['upload']
     upload_ext = os.path.splitext(upload.name)[1]
 
-
-
     if getattr(settings, 'CKEDITOR_RESTRICT_BY_USER', False):
         user_path = user.username
     else:
         user_path = ''
     date_path = datetime.now().strftime('%Y/%m/%d')
-    upload_path = os.path.join(settings.CKEDITOR_UPLOAD_PATH, user_path, date_path)
+    upload_path = os.path.join(
+        settings.CKEDITOR_UPLOAD_PATH, user_path, date_path)
     path = os.path.join(upload_path, slugify_filename(upload.name))
     default_storage.save(path, upload)
     upload_filename = path
@@ -72,4 +71,3 @@ def upload(request):
     <script type='text/javascript'>
         window.parent.CKEDITOR.tools.callFunction(%s, '%s');
     </script>""" % (request.GET['CKEditorFuncNum'], url))
-

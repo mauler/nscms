@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
 from django.forms import *
@@ -23,4 +22,3 @@ class CheckboxTagField(TagField):
     def clean(self, value):
         value = ','.join(["\"%s\"" % i for i in value])
         return super(CheckboxTagField, self).clean(value)
-

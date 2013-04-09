@@ -20,10 +20,12 @@ CEMESE_CONTENT_TITLE_LENGTH = getattr(settings,
 
 class PublisherModelManager(models.Manager):
     """ PublisherModelManager
-    Manager to return instances of ActivatorModel: SomeModel.objects.published() / .expired()
+    Manager to return instances of ActivatorModel:
+    SomeModel.objects.published() / .expired()
     """
     def published(self, order_by=None):
-        """ Returns published instances of PublisherModel: SomeModel.objects.published() """
+        """ Returns published instances of PublisherModel:
+            SomeModel.objects.published() """
         now = datetime.datetime.now()
         qset = super(PublisherModelManager, self).filter(
             Q(published=True),
@@ -35,7 +37,8 @@ class PublisherModelManager(models.Manager):
         return qset
 
     def unpublished(self):
-        """ Returns published instances of PublisherModel: SomeModel.objects.published() """
+        """ Returns published instances of PublisherModel:
+            SomeModel.objects.published() """
         now = datetime.datetime.now()
         return super(PublisherModelManager, self).get_query_set().filter(
             published=True,
@@ -43,17 +46,20 @@ class PublisherModelManager(models.Manager):
         ).order_by("publish_date")
 
     def expired(self):
-        """ Returns expired instances of PublisherModel: SomeModel.objects.expired() """
+        """ Returns expired instances of PublisherModel:
+            SomeModel.objects.expired() """
         now = datetime.datetime.now()
         return super(PublisherModelManager, self).get_query_set().filter(
             expire_date__lt=now
         ).order_by("publish_date")
 
 
-class _ContentModel(models.Model):
-
-    title = models.CharField(_('title'), max_length=CEMESE_CONTENT_TITLE_LENGTH)
-    slug = AutoSlugField(_('slug'), populate_from='title', overwrite=True, max_length=CEMESE_CONTENT_TITLE_LENGTH, editable=False)
+class ContentModel(models.Model):
+    title = models.CharField(
+        _('title'), max_length=CEMESE_CONTENT_TITLE_LENGTH)
+    slug = AutoSlugField(
+        _('slug'), populate_from='title', overwrite=True,
+        max_length=CEMESE_CONTENT_TITLE_LENGTH, editable=False)
     description = models.TextField(_('description'), blank=True, null=True)
 
     created = CreationDateTimeField(_('created'))
@@ -65,11 +71,14 @@ class _ContentModel(models.Model):
     class Meta:
         abstract = True
 
+
 class SimpleContentModel(models.Model):
-
-    title = models.CharField(_('title'), max_length=CEMESE_CONTENT_TITLE_LENGTH)
-    slug = AutoSlugField(_('slug'), populate_from='title', overwrite=True, max_length=CEMESE_CONTENT_TITLE_LENGTH, editable=False)
-
+    title = models.CharField(
+        _('title'), max_length=CEMESE_CONTENT_TITLE_LENGTH)
+    slug = AutoSlugField(
+        _('slug'), populate_from='title',
+        overwrite=True, max_length=CEMESE_CONTENT_TITLE_LENGTH,
+        editable=False)
     created = CreationDateTimeField(_('created'))
     modified = ModificationDateTimeField(_('modified'))
 
@@ -85,10 +94,10 @@ class SimpleContentModel(models.Model):
 
 
 class PersonModel(models.Model):
-
     name = models.CharField(_('name'), max_length=255)
-    slug = AutoSlugField(_('slug'), populate_from='name', overwrite=True, max_length=255, editable=False)
-
+    slug = AutoSlugField(
+        _('slug'), populate_from='name', overwrite=True,
+        max_length=255, editable=False)
     created = CreationDateTimeField(_('created'))
     modified = ModificationDateTimeField(_('modified'))
 
@@ -104,7 +113,6 @@ class PersonModel(models.Model):
 
 
 class CreationModificationModel(models.Model):
-
     created = CreationDateTimeField(_('created'))
     modified = ModificationDateTimeField(_('modified'))
 
@@ -121,13 +129,16 @@ class PublisherModel(models.Model):
     An abstract base class model that provides publish and expired fields.
     """
 
-    published = models.BooleanField(_('published'), default=False)
-    publish_date = models.DateTimeField(blank=True, null=True,
-                                        help_text=_('keep empty for an immediate publication'),
-                                        verbose_name=_('publish date'))
-    expire_date = models.DateTimeField(blank=True, null=True,
-                                       help_text=_('keep empty for indefinite expiration'),
-                                       verbose_name=_('expire date'))
+    published = models.BooleanField(
+        _('published'), default=False)
+    publish_date = models.DateTimeField(
+        blank=True, null=True,
+        help_text=_('keep empty for an immediate publication'),
+        verbose_name=_('publish date'))
+    expire_date = models.DateTimeField(
+        blank=True, null=True,
+        help_text=_('keep empty for indefinite expiration'),
+        verbose_name=_('expire date'))
 
     objects = PublisherModelManager()
 
@@ -138,8 +149,8 @@ class PublisherModel(models.Model):
     def is_published(self):
         now = datetime.datetime.now()
         return self.published and \
-               self.publish_date <= now and \
-               (self.expire_date is None or self.expire_date > now)
+            self.publish_date <= now and \
+            (self.expire_date is None or self.expire_date > now)
 
     def save(self, *args, **kwargs):
         if not self.publish_date:
@@ -150,11 +161,12 @@ class PublisherModel(models.Model):
 ADMIN_FIELDSET_TITLE = (None, {"fields": ("title", "description", )})
 
 
-ADMIN_FIELDSET_PUBLISHING = (_(u"Publicação"), {"fields": ("published", "publish_date", "expire_date", )})
+ADMIN_FIELDSET_PUBLISHING = (
+    _(u"Publicação"),
+    {"fields": ("published", "publish_date", "expire_date", )})
 
 
-class ContentModel(_ContentModel, PublisherModel):
-
+class ContentModel(ContentModel, PublisherModel):
     ADMIN_FIELDSET_TITLE = ADMIN_FIELDSET_TITLE
     ADMIN_FIELDSET_PUBLISHING = ADMIN_FIELDSET_PUBLISHING
 
@@ -173,7 +185,6 @@ class ContentModel(_ContentModel, PublisherModel):
 
 
 class TextContentModel(ContentModel):
-
     body = RichTextField(verbose_name=_(u"Corpo"))
 
     class Admin(ContentModel.Admin):
@@ -187,12 +198,13 @@ class TextContentModel(ContentModel):
 
 
 class PTBRSimpleContentModel(models.Model):
+    title = models.CharField(_(u'Título'), max_length=255)
+    slug = AutoSlugField(
+        _('slug'), populate_from='titulo',
+        overwrite=True, max_length=255, editable=False)
 
-    titulo = models.CharField(_(u'Título'), max_length=255)
-    slug = AutoSlugField(_('slug'), populate_from='titulo', overwrite=True, max_length=255, editable=False)
-
-    criado_em = CreationDateTimeField(_(u'Criado em'))
-    modificado_em = ModificationDateTimeField(_(u'Modificado em'))
+    created_at = CreationDateTimeField(_(u'Criado em'))
+    changed_at = ModificationDateTimeField(_(u'Modificado em'))
 
     def __unicode__(self):
         return self.title
@@ -212,4 +224,3 @@ except ImportError:
 else:
     from south.modelsinspector import add_introspection_rules
     add_introspection_rules([], ["^ckeditor\.fields\.RichTextField"])
-

@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
 from datetime import datetime
@@ -114,4 +113,3 @@ def duplicate(obj, value=None, field=None, duplicate_order=None):
             if root_obj is None:
                 root_obj = obj
     return root_obj
-
