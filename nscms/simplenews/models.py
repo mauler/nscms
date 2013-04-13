@@ -2,11 +2,10 @@
 
 from django.core.urlresolvers import reverse
 
-from cemese.portal.base.news.models import BaseNews
-from photologue.models import ImageModel
+from nscms.base.simplenews.models import BaseNews
 
 
-class News(BaseNews, ImageModel):
+class SimpleNews(BaseNews):
 
     def get_absolute_url(self):
         return reverse(
