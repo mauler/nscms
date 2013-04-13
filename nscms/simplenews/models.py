@@ -13,19 +13,6 @@ class NewsModel(ContentModel):
     body = RichTextField()
     tags = TaggableManager(blank=True)
 
-    class Admin(ContentModel.Admin):
-        date_hierarchy = "publish_date"
-        search_fields = ("title", "description", "body",)
-        list_filter = ("published", )
-        list_display = (
-            "title", "published", "publish_date",)
-        fieldsets = (
-            (None,
-             {"fields": ("title", "tags", "description", "body",)}),
-            (_(u"Publicação"),
-             {"fields": ("published", "publish_date", "expire_date",)}),
-        )
-
     class Meta:
         ordering = ['-publish_date']
         verbose_name = _(u"Notícia")
