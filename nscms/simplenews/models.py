@@ -1,6 +1,5 @@
 #-*- coding:utf-8 -*-
 
-from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 
@@ -19,10 +18,10 @@ class NewsModel(ContentModel):
         search_fields = ("title", "description", "body",)
         list_filter = ("published", )
         list_display = (
-            "title", "admin_thumbnail", "published", "publish_date",)
+            "title", "published", "publish_date",)
         fieldsets = (
             (None,
-             {"fields": ("title", "tags", "description", "image", "body",)}),
+             {"fields": ("title", "tags", "description", "body",)}),
             (_(u"Publicação"),
              {"fields": ("published", "publish_date", "expire_date",)}),
         )
