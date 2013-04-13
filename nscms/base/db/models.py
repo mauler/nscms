@@ -1,21 +1,15 @@
-#!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
-from django.conf import settings
 from django.contrib import admin
 from django.db.models import Q
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from ckeditor.fields import RichTextField
-from django_extensions.db.fields import *
+from django_extensions.db.fields import CreationDateTimeField,\
+    ModificationDateTimeField, AutoSlugField
 
 import datetime
-
-
-CEMESE_CONTENT_TITLE_LENGTH = getattr(settings,
-                                      "CEMESE_CONTENT_TITLE_LENGTH",
-                                      255)
 
 
 class PublisherModelManager(models.Manager):
@@ -56,10 +50,10 @@ class PublisherModelManager(models.Manager):
 
 class ContentModel(models.Model):
     title = models.CharField(
-        _('title'), max_length=CEMESE_CONTENT_TITLE_LENGTH)
+        _('title'), max_length=120)
     slug = AutoSlugField(
         _('slug'), populate_from='title', overwrite=True,
-        max_length=CEMESE_CONTENT_TITLE_LENGTH, editable=False)
+        max_length=120, editable=False)
     description = models.TextField(_('description'), blank=True, null=True)
 
     created = CreationDateTimeField(_('created'))
@@ -74,10 +68,10 @@ class ContentModel(models.Model):
 
 class SimpleContentModel(models.Model):
     title = models.CharField(
-        _('title'), max_length=CEMESE_CONTENT_TITLE_LENGTH)
+        _('title'), max_length=120)
     slug = AutoSlugField(
         _('slug'), populate_from='title',
-        overwrite=True, max_length=CEMESE_CONTENT_TITLE_LENGTH,
+        overwrite=True, max_length=120,
         editable=False)
     created = CreationDateTimeField(_('created'))
     modified = ModificationDateTimeField(_('modified'))
@@ -85,12 +79,9 @@ class SimpleContentModel(models.Model):
     def __unicode__(self):
         return self.title
 
-    class Admin(admin.ModelAdmin):
-        pass
-
     class Meta:
-        abstract = True
         ordering = ("title", )
+        abstract = True
 
 
 class PersonModel(models.Model):
@@ -104,12 +95,9 @@ class PersonModel(models.Model):
     def __unicode__(self):
         return self.name
 
-    class Admin(admin.ModelAdmin):
-        pass
-
     class Meta:
-        abstract = True
         ordering = ("name", )
+        abstract = True
 
 
 class CreationModificationModel(models.Model):
@@ -208,9 +196,6 @@ class PTBRSimpleContentModel(models.Model):
 
     def __unicode__(self):
         return self.title
-
-    class Admin(admin.ModelAdmin):
-        pass
 
     class Meta:
         abstract = True
