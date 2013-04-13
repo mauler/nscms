@@ -1,8 +1,0 @@
-Django
-FeinCMS
-django-photologue
-django-taggit
-django-extensions
-django-ckeditor
-South
-django-mptt
