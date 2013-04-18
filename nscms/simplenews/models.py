@@ -13,7 +13,7 @@ class SimpleNews(SimpleNewsModel):
     tags = TaggableManager(blank=True)
 
     class Meta:
-        app_label = _(u"Notícia")
+        app_label = "Noticia"
         ordering = ['-publish_date']
         verbose_name = _(u"Notícia")
         verbose_name_plural = _(u"Notícias")
