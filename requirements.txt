@@ -1,1 +1,3 @@
-django-taggit
+django-taggit==0.9.3
+-e git://github.com/mauler/django-extensions.git#egg=django_extensions-dev
+

@@ -6,5 +6,14 @@ DATABASES = {
 }
 
 INSTALLED_APPS = (
+    'taggit',
+    'south',
     'nscms.simplenews',
+    'django.contrib.contenttypes',
 )
+
+MEDIA_ROOT = ''
+MEDIA_URL = ''
+
+STATIC_ROOT = ''
+STATIC_URL = ''

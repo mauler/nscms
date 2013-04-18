@@ -14,7 +14,7 @@ url = 'http://github.com/mauler/nscms/'
 author = 'Paulo Roberto'
 author_email = 'proberto@gmail.com'
 license = 'BSD'
-install_requires = ['django-taggit']
+install_requires = ['django-taggit==0.9.3']
 
 CLASSIFIERS = [
     'Environment :: Web Environment',
