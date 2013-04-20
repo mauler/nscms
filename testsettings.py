@@ -10,6 +10,7 @@ INSTALLED_APPS = (
     'south',
     'nscms.simplenews',
     'nscms.simplenewsletter',
+    'nscms.simplepage',
     'django.contrib.contenttypes',
 )
 
