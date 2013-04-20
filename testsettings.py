@@ -9,6 +9,7 @@ INSTALLED_APPS = (
     'taggit',
     'south',
     'nscms.simplenews',
+    'nscms.simplenewsletter',
     'django.contrib.contenttypes',
 )
 
