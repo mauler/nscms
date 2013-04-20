@@ -15,8 +15,7 @@ author = 'Paulo Roberto'
 author_email = 'proberto@gmail.com'
 license = 'BSD'
 install_requires = [
-    'django-taggit==0.9.3', 'django-mptt==0.5.5', 'django-tinymce==1.5.1',
-    'FeinCMS==1.6.2']
+    'django-taggit==0.9.3', 'django-mptt==0.5.5', 'FeinCMS==1.6.2']
 
 CLASSIFIERS = [
     'Environment :: Web Environment',
