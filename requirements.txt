@@ -1,0 +1,4 @@
+django-taggit==0.9.3
+django-mptt==0.5.5
+FeinCMS==1.6.2
+-e git://github.com/mauler/django-extensions.git#egg=django_extensions-dev
