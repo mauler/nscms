@@ -15,7 +15,13 @@ url = 'http://github.com/mauler/nscms/'
 author = 'Paulo Roberto'
 author_email = 'proberto@gmail.com'
 license = 'BSD'
-install_requires = open("requirements.txt").read().strip().split("\n")
+install_requires = u"""
+django-taggit==0.10a1
+django-mptt==0.5.5
+FeinCMS==1.6.2
+FeinCMS==1.6.2
+django-extensions>=1.1.1
+""".strip().split("\n")
 
 CLASSIFIERS = [
     'Environment :: Web Environment',
