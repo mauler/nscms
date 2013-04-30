@@ -9,13 +9,13 @@ import sys
 
 name = 'nscms'
 package = 'nscms'
-description = 'A core to build CMS'
+description = u'A collection of core related code to build a CMS for a ' \
+    'portal or a simple website.'
 url = 'http://github.com/mauler/nscms/'
 author = 'Paulo Roberto'
 author_email = 'proberto@gmail.com'
 license = 'BSD'
-install_requires = [
-    'django-taggit==0.9.3', 'django-mptt==0.5.5', 'FeinCMS==1.6.2']
+install_requires = open("requirements.txt").read().strip().split("\n")
 
 CLASSIFIERS = [
     'Environment :: Web Environment',
@@ -71,7 +71,7 @@ if sys.argv[-1] == 'publish':
     os.system("python setup.py sdist upload")
     args = {'version': get_version(package)}
     print "You probably want to also tag the version now:"
-    print "  git tag -a %(version)s -m 'version %(version)s'" % args
+    print "  git tag -a %(version)s -m 'Version %(version)s'" % args
     print "  git push --tags"
     sys.exit()
 
