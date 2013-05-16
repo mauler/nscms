@@ -1,6 +1,6 @@
 #-*- coding:utf-8 -*-
 
-from nscms.base.db.models import SimpleContentModel, \
+from nscms.base.content.models import SimpleContentModel, \
     PublisherModel
 
 from django.db import models

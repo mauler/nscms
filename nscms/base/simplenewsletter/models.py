@@ -1,6 +1,6 @@
 #-*- coding:utf-8 -*-
 
-from nscms.base.db.models import CreationModificationModel
+from nscms.base.content.models import CreationModificationModel
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _

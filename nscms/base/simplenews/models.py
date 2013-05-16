@@ -4,7 +4,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 
-from nscms.base.db.models import PublisherModel, ContentModel
+from nscms.base.content.models import PublisherModel, ContentModel
 
 
 SIMPLENEWS_IMAGE_UPLOAD_TO = \
