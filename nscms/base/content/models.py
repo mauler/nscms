@@ -50,10 +50,10 @@ class PublisherModelManager(models.Manager):
 
 class ContentModel(models.Model):
     title = models.CharField(
-        _('title'), max_length=120)
+        _('title'), max_length=255)
     slug = AutoSlugField(
         _('slug'), populate_from='title', overwrite=True,
-        max_length=120, editable=False)
+        max_length=255, editable=False)
     description = models.TextField(_('description'), blank=True, null=True)
 
     created = CreationDateTimeField(_('created'))
@@ -68,10 +68,10 @@ class ContentModel(models.Model):
 
 class SimpleContentModel(models.Model):
     title = models.CharField(
-        _('title'), max_length=120)
+        _('title'), max_length=255)
     slug = AutoSlugField(
         _('slug'), populate_from='title',
-        overwrite=True, max_length=120,
+        overwrite=True, max_length=255,
         editable=False)
     created = CreationDateTimeField(_('created'))
     modified = ModificationDateTimeField(_('modified'))
@@ -203,9 +203,8 @@ class PTBRSimpleContentModel(models.Model):
 
 
 try:
-    import south
+    from south.modelsinspector import add_introspection_rules
 except ImportError:
     pass
 else:
-    from south.modelsinspector import add_introspection_rules
     add_introspection_rules([], ["^ckeditor\.fields\.RichTextField"])
