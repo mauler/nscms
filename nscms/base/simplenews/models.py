@@ -11,7 +11,7 @@ SIMPLENEWS_IMAGE_UPLOAD_TO = \
     getattr(settings, "SIMPLENEWS_IMAGE_UPLOAD_TO", "simplenews")
 
 
-class SimpleNewsModel(ContentModel, PublisherModel):
+class SimpleNewsModel(ContentModel):
     image = models.ImageField(
         upload_to=SIMPLENEWS_IMAGE_UPLOAD_TO, max_length=255)
 
