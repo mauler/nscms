@@ -15,6 +15,6 @@ class NewsletterTestCase(TestCase):
         client = Client()
         url = reverse("newsletter:optin")
         response = client.get(url, {'email': email})
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
         self.assertQuerysetEqual(
             Subscription.objects.all(), ['<Subscription: user@domain.com>'])
