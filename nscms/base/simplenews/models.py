@@ -4,7 +4,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 
-from nscms.base.content.models import PublisherModel, ContentModel
+from nscms.base.content.models import ContentModel
 
 
 SIMPLENEWS_IMAGE_UPLOAD_TO = \
@@ -13,7 +13,7 @@ SIMPLENEWS_IMAGE_UPLOAD_TO = \
 
 class SimpleNewsModel(ContentModel):
     image = models.ImageField(
-        upload_to=SIMPLENEWS_IMAGE_UPLOAD_TO, max_length=255)
+        upload_to=SIMPLENEWS_IMAGE_UPLOAD_TO, max_length=255, blank=True)
 
     class Meta:
         ordering = ['-publish_date']

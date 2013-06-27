@@ -48,24 +48,6 @@ class PublisherModelManager(models.Manager):
         ).order_by("publish_date")
 
 
-class ContentModel(models.Model):
-    title = models.CharField(
-        _('title'), max_length=255)
-    slug = AutoSlugField(
-        _('slug'), populate_from='title', overwrite=True,
-        max_length=255, editable=False)
-    description = models.TextField(_('description'), blank=True, null=True)
-
-    created = CreationDateTimeField(_('created'))
-    modified = ModificationDateTimeField(_('modified'))
-
-    def __unicode__(self):
-        return self.title
-
-    class Meta:
-        abstract = True
-
-
 class SimpleContentModel(models.Model):
     title = models.CharField(
         _('title'), max_length=255)
@@ -154,7 +136,17 @@ ADMIN_FIELDSET_PUBLISHING = (
     {"fields": ("published", "publish_date", "expire_date", )})
 
 
-class ContentModel(ContentModel, PublisherModel):
+class ContentModel(PublisherModel):
+    title = models.CharField(
+        _('title'), max_length=255)
+    slug = AutoSlugField(
+        _('slug'), populate_from='title', overwrite=True,
+        max_length=255, editable=False)
+    description = models.TextField(_('description'), blank=True, null=True)
+
+    created = CreationDateTimeField(_('created'))
+    modified = ModificationDateTimeField(_('modified'))
+
     ADMIN_FIELDSET_TITLE = ADMIN_FIELDSET_TITLE
     ADMIN_FIELDSET_PUBLISHING = ADMIN_FIELDSET_PUBLISHING
 
@@ -170,6 +162,9 @@ class ContentModel(ContentModel, PublisherModel):
 
     class Meta(PublisherModel.Meta):
         abstract = True
+
+    def __unicode__(self):
+        return self.title
 
 
 class TextContentModel(ContentModel):
