@@ -2,7 +2,7 @@
 
 from django.contrib.admin import site, ModelAdmin
 
-from nscms.simplenews.models import SimpleNews
+from .models import SimpleNews
 
 
 class SimpleNewsAdmin(ModelAdmin):
