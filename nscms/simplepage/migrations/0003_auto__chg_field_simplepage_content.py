@@ -15,7 +15,7 @@ class Migration(SchemaMigration):
     def backwards(self, orm):
 
         # Changing field 'SimplePage.content'
-        db.alter_column('simplepage_simplepage', 'content', self.gf('tinymce.models.HTMLField')())
+        db.alter_column('simplepage_simplepage', 'content', self.gf('ckeditor.fields.RichTextField')())
 
     models = {
         'simplepage.simplepage': {

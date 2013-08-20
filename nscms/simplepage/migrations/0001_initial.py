@@ -16,7 +16,7 @@ class Migration(SchemaMigration):
             ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
             ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
             ('parent', self.gf('mptt.fields.TreeForeignKey')(blank=True, related_name='children', null=True, to=orm['simplepage.SimplePage'])),
-            ('content', self.gf('tinymce.models.HTMLField')(blank=True)),
+            ('content', self.gf('ckeditor.fields.RichTextField')(blank=True)),
             ('redirect_to', self.gf('mptt.fields.TreeForeignKey')(blank=True, related_name='redirected_from', null=True, to=orm['simplepage.SimplePage'])),
             ('redirect_to_url', self.gf('django.db.models.fields.URLField')(max_length=200, blank=True)),
             ('lft', self.gf('django.db.models.fields.PositiveIntegerField')(db_index=True)),
@@ -35,7 +35,7 @@ class Migration(SchemaMigration):
     models = {
         'simplepage.simplepage': {
             'Meta': {'ordering': "['-created']", 'object_name': 'SimplePage'},
-            'content': ('tinymce.models.HTMLField', [], {'blank': 'True'}),
+            'content': ('ckeditor.fields.RichTextField', [], {'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'level': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),

@@ -38,7 +38,7 @@ class Migration(SchemaMigration):
     models = {
         'simplepage.simplepage': {
             'Meta': {'ordering': "['-created']", 'object_name': 'SimplePage'},
-            'content': ('tinymce.models.HTMLField', [], {'blank': 'True'}),
+            'content': ('ckeditor.fields.RichTextField', [], {'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'expire_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
