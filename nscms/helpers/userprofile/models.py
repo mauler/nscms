@@ -29,6 +29,7 @@ class UserProfileModel(models.Model):
             user_set_password = getattr(self, '_user_set_password', None)
             if user_set_password is not None:
                 user.set_password(user_set_password)
+                user.email = self.email
                 user.save()
             usercreated = True
         else:
@@ -37,6 +38,7 @@ class UserProfileModel(models.Model):
         if usercreated:
             user.username = \
                 u'%s-%d' % (self.__class__.__name__.lower(), self.id)
+            user.email = self.email
             user.save()
 
         return saved
