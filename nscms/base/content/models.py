@@ -55,8 +55,8 @@ class SimpleContentModel(models.Model):
         _('slug'), populate_from='title',
         overwrite=True, max_length=255,
         editable=False)
-    created = CreationDateTimeField(_('created'))
-    modified = ModificationDateTimeField(_('modified'))
+    created = CreationDateTimeField(_('created'), db_index=True)
+    modified = ModificationDateTimeField(_('modified'), db_index=True)
 
     def __unicode__(self):
         return self.title
@@ -83,8 +83,8 @@ class PersonModel(models.Model):
 
 
 class CreationModificationModel(models.Model):
-    created = CreationDateTimeField(_('created'))
-    modified = ModificationDateTimeField(_('modified'))
+    created = CreationDateTimeField(_('created'), db_index=True)
+    modified = ModificationDateTimeField(_('modified'), db_index=True)
 
     class Meta:
         abstract = True
@@ -98,19 +98,26 @@ class PublisherModel(models.Model):
     """ PublisherModel
     An abstract base class model that provides publish and expired fields.
     """
+    objects = PublisherModelManager()
 
     published = models.BooleanField(
-        _('published'), default=False)
-    publish_date = models.DateTimeField(
-        blank=True, null=True,
-        help_text=_('keep empty for an immediate publication'),
-        verbose_name=_('publish date'))
-    expire_date = models.DateTimeField(
-        blank=True, null=True,
-        help_text=_('keep empty for indefinite expiration'),
-        verbose_name=_('expire date'))
+        _('published'),
+        default=False,
+        db_index=True)
 
-    objects = PublisherModelManager()
+    publish_date = models.DateTimeField(
+        verbose_name=_('publish date'),
+        help_text=_('keep empty for an immediate publication'),
+        blank=True,
+        db_index=True,
+        null=True)
+
+    expire_date = models.DateTimeField(
+        verbose_name=_('expire date'),
+        help_text=_('keep empty for indefinite expiration'),
+        blank=True,
+        null=True,
+        db_index=True)
 
     class Meta:
         abstract = True
@@ -138,14 +145,26 @@ ADMIN_FIELDSET_PUBLISHING = (
 
 class ContentModel(PublisherModel):
     title = models.CharField(
-        _('title'), max_length=255)
+        _('title'),
+        max_length=255)
+
     slug = AutoSlugField(
-        _('slug'), populate_from='title', overwrite=True,
-        max_length=255, editable=False)
+        verbose_name=_('slug'),
+        populate_from='title',
+        overwrite=True,
+        editable=False,
+        max_length=255,
+        db_index=True)
+
     description = models.TextField(_('description'), blank=True, null=True)
 
-    created = CreationDateTimeField(_('created'))
-    modified = ModificationDateTimeField(_('modified'))
+    created = CreationDateTimeField(
+        verbose_name=_('created'),
+        db_index=True)
+
+    modified = ModificationDateTimeField(
+        _('modified'),
+        db_index=True)
 
     ADMIN_FIELDSET_TITLE = ADMIN_FIELDSET_TITLE
     ADMIN_FIELDSET_PUBLISHING = ADMIN_FIELDSET_PUBLISHING
