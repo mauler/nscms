@@ -22,4 +22,6 @@ class Banner(ContentModel):
     url = models.URLField(u"URL")
 
     def __unicode__(self):
-        return self.title.strip() or self.description.strip() or self.url
+        return self.title.strip() or \
+            self.description and self.description.strip() or \
+            self.url
