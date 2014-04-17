@@ -1,0 +1,175 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-17 04:03-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: base/content/models.py:53 base/content/models.py:148
+msgid "title"
+msgstr "Título"
+
+#: base/content/models.py:55 base/content/models.py:72
+#: base/content/models.py:152 base/content/models.py:205
+#: localflavor/br/models.py:30
+msgid "slug"
+msgstr ""
+
+#: base/content/models.py:58 base/content/models.py:74
+#: base/content/models.py:86 base/content/models.py:162
+msgid "created"
+msgstr "Criado"
+
+#: base/content/models.py:59 base/content/models.py:75
+#: base/content/models.py:87 base/content/models.py:166
+msgid "modified"
+msgstr "Modificado"
+
+#: base/content/models.py:70
+msgid "name"
+msgstr "Nome"
+
+#: base/content/models.py:104
+msgid "published"
+msgstr "Publicado"
+
+#: base/content/models.py:109
+msgid "publish date"
+msgstr "Data de Publicação"
+
+#: base/content/models.py:110
+msgid "keep empty for an immediate publication"
+msgstr "Deixe em branco para publicação imediata"
+
+#: base/content/models.py:116
+msgid "expire date"
+msgstr "Data de expiração"
+
+#: base/content/models.py:117
+msgid "keep empty for indefinite expiration"
+msgstr "Deixe em branco para expiração indefinida"
+
+#: base/content/models.py:142
+msgid "Publicação"
+msgstr ""
+
+#: base/content/models.py:159
+msgid "description"
+msgstr "Descrição"
+
+#: base/content/models.py:190
+msgid "Corpo"
+msgstr ""
+
+#: base/content/models.py:203 localflavor/br/models.py:28
+msgid "Título"
+msgstr ""
+
+#: base/content/models.py:208
+msgid "Criado em"
+msgstr ""
+
+#: base/content/models.py:209
+msgid "Modificado em"
+msgstr ""
+
+#: base/simplenews/models.py:20 simplenews/models.py:17
+msgid "Notícia"
+msgstr ""
+
+#: base/simplenews/models.py:21 simplenews/models.py:18
+msgid "Notícias"
+msgstr ""
+
+#: base/simplepage/models.py:15
+msgid "Pai"
+msgstr ""
+
+#: base/simplepage/models.py:17
+msgid "Conteúdo"
+msgstr ""
+
+#: base/simplepage/models.py:19
+msgid "Redirecionar para página"
+msgstr ""
+
+#: base/simplepage/models.py:23
+msgid "Redirecionar para esta URL"
+msgstr ""
+
+#: contrib/banner/models.py:14 contrib/banner/models.py:20
+msgid "Section"
+msgstr "Seção"
+
+#: contrib/banner/models.py:15
+msgid "Sections"
+msgstr "Seções"
+
+#: contrib/banner/models.py:21
+msgid "Image"
+msgstr "Imagem"
+
+#: contrib/block/models.py:14
+msgid "Content"
+msgstr "Conteúdo"
+
+#: contrib/block/models.py:17 contrib/block/models.py:18
+msgid "Block"
+msgstr "Bloco"
+
+#: contrib/newsletter/models.py:17
+msgid "Inscrição"
+msgstr ""
+
+#: contrib/newsletter/models.py:18
+msgid "Inscrições"
+msgstr ""
+
+#: db/models/youtube.py:18 db/models/youtube.py:20
+msgid "Not a valid Youtube URL"
+msgstr "Não é uma URL válida do Youtube"
+
+#: localflavor/br/models.py:19
+msgid "Data de criação"
+msgstr ""
+
+#: localflavor/br/models.py:20
+msgid "Data de modificação"
+msgstr ""
+
+#: localflavor/br/models.py:46
+msgid "Deixe em branco para publicação imediata."
+msgstr ""
+
+#: localflavor/br/models.py:47
+msgid "Publicado"
+msgstr ""
+
+#: localflavor/br/models.py:52
+msgid "Data de publicação"
+msgstr ""
+
+#: localflavor/br/models.py:57
+msgid "Data de expiração"
+msgstr ""
+
+#: simplepage/models.py:12
+msgid "Página"
+msgstr ""
+
+#: simplepage/models.py:13
+msgid "Páginas"
+msgstr ""
