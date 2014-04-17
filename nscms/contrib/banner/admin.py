@@ -15,7 +15,7 @@ site.register(Section, SectionAdmin)
 class BannerAdmin(ModelAdmin):
     fieldsets = (
         (None, {'fields': [
-            'section', 'title', 'image', 'url']}),
+            'section', 'title', 'description', 'image', 'url']}),
         (u"Publicação", {'fields': [
             'published', ('publish_date', 'expire_date', )]}),
     )
