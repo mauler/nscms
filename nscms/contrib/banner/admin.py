@@ -19,7 +19,7 @@ class BannerAdmin(ModelAdmin):
         (u"Publicação", {'fields': [
             'published', ('publish_date', 'expire_date', )]}),
     )
-    list_display = ("title", "url", "section", "published", "publish_date", )
+    list_display = ("__unicode__", "url", "section", "published", "publish_date", )
     list_filter = ("section", "published", "publish_date", )
 
 
