@@ -2,6 +2,7 @@
 
 from django.contrib import admin
 
+from .forms import BlockForm
 from .models import Block
 
 
@@ -16,5 +17,6 @@ class BlockAdmin(admin.ModelAdmin):
         (u"Publicação", {'fields': [
             'published', ('publish_date', 'expire_date')]}),
     )
+    form = BlockForm
 
 admin.site.register(Block, BlockAdmin)
