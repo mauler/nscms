@@ -6,12 +6,16 @@ from nscms.base.content.models import SimpleContentModel, \
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from mptt.models import MPTTModel, TreeForeignKey
-from ckeditor.fields import RichTextField
-
 
 class Block(SimpleContentModel, PublisherModel):
-    content = RichTextField(verbose_name=_(u"Content"))
+    content = models.TextField(verbose_name=_(u"Content"))
+    is_template = models.BooleanField(
+        default=False,
+        help_text=_(
+            u"Check this if the block is a Django Template and needs "
+            u"to be processed."),
+        verbose_name=_(u"Is a template ?"),
+    )
 
     class Meta:
         verbose_name = _(u"Block")

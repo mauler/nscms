@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-29 07:54-0300\n"
+"POT-Creation-Date: 2014-05-04 14:40-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,10 +18,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: models.py:14
+#: models.py:11
 msgid "Content"
 msgstr "Conteúdo"
 
-#: models.py:17 models.py:18
+#: models.py:15
+msgid "Check this if the block is a Django Template and needs to be processed."
+msgstr "Marque isto se o bloco é uma template Django e precisa ser processada."
+
+#: models.py:17
+msgid "Is a template ?"
+msgstr "É uma template ?"
+
+#: models.py:21 models.py:22
 msgid "Block"
 msgstr "Bloco"

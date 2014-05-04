@@ -7,10 +7,12 @@ from .models import Block
 
 class BlockAdmin(admin.ModelAdmin):
     list_display = (
-        "title", "slug", "published", "publish_date")
+        "title", "slug", "is_template", "published", "publish_date")
+    list_filter = ("is_template", "published", )
     search_fields = ("title", "slug", "content", )
     fieldsets = (
         (None, {'fields': ['title', 'content']}),
+        (None, {'fields': ['is_template']}),
         (u"Publicação", {'fields': [
             'published', ('publish_date', 'expire_date')]}),
     )

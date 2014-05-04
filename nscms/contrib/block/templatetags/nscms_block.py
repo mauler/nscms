@@ -1,3 +1,4 @@
+from django.template import Template
 from django import template
 
 from classytags.core import Tag, Options
@@ -13,9 +14,11 @@ class RenderBlock(Tag):
     name = 'render_block'
     options = Options(
         Argument('title'),
+        'as',
+        Argument('varname', required=False, resolve=False)
     )
 
-    def render_tag(self, context, title):
+    def render_tag(self, context, title, varname):
         qs = Block.objects.published().filter(title=title)
         if qs.exists():
             block = qs[0]
@@ -24,7 +27,17 @@ class RenderBlock(Tag):
             block.title = title
             block.published = True
             block.save()
-        return block.content
+
+        if block.is_template:
+            output = Template(block.content).render(context)
+        else:
+            output = block.content
+
+        if varname:
+            context[varname] = output
+            return ''
+        else:
+            return output
 
 
 register.tag(RenderBlock)
