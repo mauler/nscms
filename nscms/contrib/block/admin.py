@@ -1,12 +1,21 @@
 #-*- coding:utf-8 -*-
 
+from django.conf import settings
 from django.contrib import admin
 
 from .forms import BlockForm
 from .models import Block
 
 
-class BlockAdmin(admin.ModelAdmin):
+def get_modeladmin_class():
+    if 'reversion' in settings.INSTALLED_APPS:
+        import reversion
+        return reversion.VersionAdmin
+    else:
+        admin.ModelAdmin
+
+
+class BlockAdmin(get_modeladmin_class()):
     list_display = (
         "title", "slug", "is_template", "published", "publish_date")
     list_filter = ("is_template", "published", )

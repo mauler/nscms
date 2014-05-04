@@ -16,5 +16,7 @@ class BlockForm(forms.ModelForm):
             from suit.widgets import AutosizedTextarea
             widgets = {
                 'content': AutosizedTextarea(
-                    attrs={'class': 'input-xxlarge'}),
+                    attrs={
+                        'rows': 10,
+                        'class': 'input-xxlarge'}),
             }
