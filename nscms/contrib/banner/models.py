@@ -24,4 +24,4 @@ class Banner(ContentModel):
     def __unicode__(self):
         return self.title.strip() or \
             self.description and self.description.strip() or \
-            self.url
+            self.url.strip() or self.image
