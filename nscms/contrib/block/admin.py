@@ -12,7 +12,7 @@ def get_modeladmin_class():
         import reversion
         return reversion.VersionAdmin
     else:
-        admin.ModelAdmin
+        return admin.ModelAdmin
 
 
 class BlockAdmin(get_modeladmin_class()):
