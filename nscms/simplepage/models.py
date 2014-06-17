@@ -1,11 +1,15 @@
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 
+# Core Django imports
 from django.utils.translation import ugettext_lazy as _
 
-from nscms.base.simplepage.models import SimplePageModel
+# Thirdy Apps imports
+
+# Realative imports of the 'app-name' package
+from nscms.base.simplepage.models import SimplePageModel, MetaData
 
 
-class SimplePage(SimplePageModel):
+class SimplePage(SimplePageModel, MetaData):
 
     class Meta:
         ordering = ['-created']
