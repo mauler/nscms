@@ -1,11 +1,11 @@
 #-*- coding:utf-8 -*-
 
+from django.conf import settings
 from django.contrib import admin
 from django.db.models import Q
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from ckeditor.fields import RichTextField
 from django_extensions.db.fields import CreationDateTimeField,\
     ModificationDateTimeField, AutoSlugField
 
@@ -187,7 +187,11 @@ class ContentModel(PublisherModel):
 
 
 class TextContentModel(ContentModel):
-    body = RichTextField(verbose_name=_(u"Corpo"))
+    if 'ckeditor' in settings.INSTALLED_APPS:
+        from ckeditor.fields import RichTextField
+        body = RichTextField(verbose_name=_(u"Corpo"))
+    else:
+        body = models.TextField(verbose_name=_(u"Corpo"))
 
     class Admin(ContentModel.Admin):
         fieldsets = (
