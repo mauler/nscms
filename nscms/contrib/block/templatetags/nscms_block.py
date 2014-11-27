@@ -35,6 +35,7 @@ class RenderBlock(Tag):
 
         if varname:
             context[varname] = output
+            context["%s_block" % varname] = block
             return ''
         else:
             return output
