@@ -35,7 +35,10 @@ class YoutubeUrl(unicode):
 
     @property
     def thumb(self):
-        return "http://img.youtube.com/vi/%s/2.jpg" % self.video_id
+        return self.get_thumb()
+
+    def get_thumb(self, version="hqdefault"):
+        return "http://img.youtube.com/vi/%s/%s.jpg" % (self.video_id, version)
 
 
 class YoutubeUrlField(models.URLField):
@@ -56,6 +59,7 @@ class YoutubeUrlField(models.URLField):
 try:
     from south.modelsinspector import add_introspection_rules
     add_introspection_rules(
-        [],  ["^nscms\.db\.models\.youtube\.YoutubeUrlField"])
+        [],
+        ["^nscms\.db\.models\.youtube\.YoutubeUrlField"])
 except ImportError:
     pass
