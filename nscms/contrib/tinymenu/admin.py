@@ -5,4 +5,8 @@ from mptt.admin import MPTTModelAdmin
 from .models import Node
 
 
-site.register(Node, MPTTModelAdmin)
+class NodeAdmin(MPTTModelAdmin):
+    search_fields = ("title", )
+
+
+site.register(Node, NodeAdmin)
