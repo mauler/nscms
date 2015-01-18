@@ -31,7 +31,7 @@ def main():
 
     from django.test.utils import get_runner
     test_runner = get_runner(settings)(verbosity=2, interactive=True)
-    failures = test_runner.run_tests(['nscms', 'newsletter'])
+    failures = test_runner.run_tests(['nscms', 'nscms.contrib.newsletter'])
     sys.exit(failures)
 
 
