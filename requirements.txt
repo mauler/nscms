@@ -1,3 +1,4 @@
 Django<1.7
 django-extensions
 importlib
+django-taggit
