@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
+from colorful.fields import RGBColorField
 from mptt.models import MPTTModel, TreeForeignKey
 from nscms.base.content.models import ContentModel, SimpleContentModel
 from sorl.thumbnail import ImageField
@@ -28,6 +29,11 @@ class Channel(MPTTModel, SimpleContentModel):
         blank=True,
         upload_to="channels",
         verbose_name=_("Image"),
+    )
+
+    alternative_color_hex = RGBColorField(
+        default="#000000",
+        verbose_name=_("Cor Alternativa"),
     )
 
     tags = TaggableManager()
