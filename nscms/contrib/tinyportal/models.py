@@ -43,6 +43,12 @@ class Channel(MPTTModel, SimpleContentModel):
         verbose_name_plural = _(TINYPORTAL_CHANNEL_VERBOSE_NAME_PLURAL)
 
 
+def channel_pre_save(sender, instance, *args, **kwargs):
+    if instance.alternative_color_hex and not \
+            instance.alternative_color_hex.startswith('#'):
+        instance.alternative_color_hex = "#%s" % instance.alternative_color_hex
+
+
 class ContainerModel(ContentModel):
     channel = TreeForeignKey('Channel')
     tags = TaggableManager()
