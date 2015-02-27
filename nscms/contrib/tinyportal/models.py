@@ -36,7 +36,7 @@ class Channel(MPTTModel, SimpleContentModel):
         verbose_name=_("Cor Alternativa"),
     )
 
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     class Meta:
         verbose_name = _(TINYPORTAL_CHANNEL_VERBOSE_NAME)
@@ -51,10 +51,13 @@ def channel_pre_save(sender, instance, *args, **kwargs):
 
 class ContainerModel(ContentModel):
     channel = TreeForeignKey('Channel')
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     class Meta:
         abstract = True
+
+    def get_tags(self):
+        return self.tags.all() or self.channel.tags.all()
 
 
 class Container(ContainerModel):
